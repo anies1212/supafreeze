@@ -30,7 +30,8 @@ class SchemaDiff {
   final List<String> tablesToRemove;
 
   /// Whether any changes were detected
-  bool get hasChanges => tablesToGenerate.isNotEmpty || tablesToRemove.isNotEmpty;
+  bool get hasChanges =>
+      tablesToGenerate.isNotEmpty || tablesToRemove.isNotEmpty;
 
   const SchemaDiff({
     required this.tablesToGenerate,

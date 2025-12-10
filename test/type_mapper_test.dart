@@ -79,7 +79,8 @@ void main() {
         TypeMapper.registerEnum('status', ['active', 'inactive', 'pending']);
 
         expect(TypeMapper.isCustomEnum('status'), isTrue);
-        expect(TypeMapper.getEnumValues('status'), ['active', 'inactive', 'pending']);
+        expect(TypeMapper.getEnumValues('status'),
+            ['active', 'inactive', 'pending']);
       });
 
       test('maps custom enum to String', () {

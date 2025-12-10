@@ -26,7 +26,8 @@ class ConfigLoader {
         _envVars = envVars ?? Platform.environment;
 
   /// Loads configuration from supafreeze.yaml
-  Future<SupafreezeConfig?> loadConfig([String configPath = 'supafreeze.yaml']) async {
+  Future<SupafreezeConfig?> loadConfig(
+      [String configPath = 'supafreeze.yaml']) async {
     final configFile = File(configPath);
     if (!await configFile.exists()) {
       return null;
@@ -213,11 +214,11 @@ class ConfigLoader {
   }
 
   FetchMode _parseFetchMode(String? value) => switch (value?.toLowerCase()) {
-    'always' => FetchMode.always,
-    'if_no_cache' || 'ifnocache' => FetchMode.ifNoCache,
-    'never' => FetchMode.never,
-    _ => FetchMode.always,
-  };
+        'always' => FetchMode.always,
+        'if_no_cache' || 'ifnocache' => FetchMode.ifNoCache,
+        'never' => FetchMode.never,
+        _ => FetchMode.always,
+      };
 }
 
 /// Configuration for relation overrides on a specific relation
@@ -326,25 +327,35 @@ class SupafreezeConfig {
     return tableConfig.isEnabled(relationName);
   }
 
-  bool get isValid => url != null && url!.isNotEmpty && secretKey != null && secretKey!.isNotEmpty;
+  bool get isValid =>
+      url != null &&
+      url!.isNotEmpty &&
+      secretKey != null &&
+      secretKey!.isNotEmpty;
 
   /// Validates the configuration and returns a list of issues
   List<String> validate() {
     final issues = <String>[];
 
     if (url == null || url!.isEmpty) {
-      issues.add('Supabase Data API URL is not configured. Set SUPABASE_DATA_API_URL in .env or environment.');
+      issues.add(
+          'Supabase Data API URL is not configured. Set SUPABASE_DATA_API_URL in .env or environment.');
     } else if (!url!.startsWith('https://')) {
       issues.add('Supabase Data API URL should start with https://');
     }
 
     if (secretKey == null || secretKey!.isEmpty) {
-      issues.add('Supabase secret key is not configured. Set SUPABASE_SECRET_KEY in .env or environment.');
+      issues.add(
+          'Supabase secret key is not configured. Set SUPABASE_SECRET_KEY in .env or environment.');
     } else if (secretKey!.length < 20) {
-      issues.add('Supabase secret key appears too short. Make sure you\'re using the service_role key.');
+      issues.add(
+          'Supabase secret key appears too short. Make sure you\'re using the service_role key.');
     }
 
-    if (include != null && exclude != null && include!.isNotEmpty && exclude!.isNotEmpty) {
+    if (include != null &&
+        exclude != null &&
+        include!.isNotEmpty &&
+        exclude!.isNotEmpty) {
       issues.add('Both include and exclude lists are specified. Use only one.');
     }
 

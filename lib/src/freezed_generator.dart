@@ -66,11 +66,13 @@ class FreezedGenerator {
     buffer.writeln('// coverage:ignore-file');
     buffer.writeln('// GENERATED CODE - DO NOT MODIFY BY HAND');
     buffer.writeln('// ignore_for_file: type=lint');
-    buffer.writeln('// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark');
+    buffer.writeln(
+        '// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark');
     buffer.writeln();
 
     // Imports
-    buffer.writeln("import 'package:freezed_annotation/freezed_annotation.dart';");
+    buffer.writeln(
+        "import 'package:freezed_annotation/freezed_annotation.dart';");
 
     // Add imports for related models
     final relatedImports = _getRelatedImports(table);
@@ -393,9 +395,11 @@ class FreezedGenerator {
     buffer.writeln('// coverage:ignore-file');
     buffer.writeln('// GENERATED CODE - DO NOT MODIFY BY HAND');
     buffer.writeln('// ignore_for_file: type=lint');
-    buffer.writeln('// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark');
+    buffer.writeln(
+        '// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark');
     buffer.writeln();
-    buffer.writeln("import 'package:freezed_annotation/freezed_annotation.dart';");
+    buffer.writeln(
+        "import 'package:freezed_annotation/freezed_annotation.dart';");
     buffer.writeln();
 
     // Part directives - fixed output filename

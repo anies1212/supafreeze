@@ -35,7 +35,8 @@ void main() {
         final table = TableInfo(
           name: 'posts',
           columns: [
-            ColumnInfo(name: 'created_at', dataType: 'timestamptz', isNullable: false),
+            ColumnInfo(
+                name: 'created_at', dataType: 'timestamptz', isNullable: false),
             ColumnInfo(name: 'user_id', dataType: 'uuid', isNullable: false),
           ],
         );
@@ -90,8 +91,10 @@ void main() {
         final table = TableInfo(
           name: 'test_table',
           columns: [
-            ColumnInfo(name: 'optional_field', dataType: 'text', isNullable: true),
-            ColumnInfo(name: 'required_field', dataType: 'text', isNullable: false),
+            ColumnInfo(
+                name: 'optional_field', dataType: 'text', isNullable: true),
+            ColumnInfo(
+                name: 'required_field', dataType: 'text', isNullable: false),
           ],
         );
 
@@ -141,8 +144,10 @@ void main() {
     group('getFileName', () {
       test('returns correct file name for table', () {
         expect(generator.getFileName('users'), 'users.supafreeze.dart');
-        expect(generator.getFileName('user_profiles'), 'user_profiles.supafreeze.dart');
-        expect(generator.getFileName('UserProfiles'), 'user_profiles.supafreeze.dart');
+        expect(generator.getFileName('user_profiles'),
+            'user_profiles.supafreeze.dart');
+        expect(generator.getFileName('UserProfiles'),
+            'user_profiles.supafreeze.dart');
       });
     });
 

@@ -86,16 +86,16 @@ void main(List<String> args) async {
   }
 
   // Apply filters
-  final filteredTables = tables
-      .where((t) => config.shouldIncludeTable(t.name))
-      .toList();
+  final filteredTables =
+      tables.where((t) => config.shouldIncludeTable(t.name)).toList();
 
   if (filteredTables.isEmpty) {
     print('ℹ️  No tables found matching filter criteria.');
     exit(0);
   }
 
-  print('📋 Found ${filteredTables.length} table(s): ${filteredTables.map((t) => t.name).join(', ')}');
+  print(
+      '📋 Found ${filteredTables.length} table(s): ${filteredTables.map((t) => t.name).join(', ')}');
 
   // Compute diff
   final diff = await cache.computeDiff(filteredTables);
@@ -162,12 +162,14 @@ void main(List<String> args) async {
   }
 
   print('');
-  print('🎉 Done! Generated ${tablesToGenerate.length} model(s), removed ${diff.tablesToRemove.length} model(s).');
+  print(
+      '🎉 Done! Generated ${tablesToGenerate.length} model(s), removed ${diff.tablesToRemove.length} model(s).');
   print('');
   print('📝 Now run: dart run build_runner build');
 }
 
-Future<void> _removeTableFiles(String outputDir, String tableName, FreezedGenerator generator) async {
+Future<void> _removeTableFiles(
+    String outputDir, String tableName, FreezedGenerator generator) async {
   final baseName = generator.getFileName(tableName).replaceAll('.dart', '');
 
   final files = [

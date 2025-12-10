@@ -21,8 +21,8 @@ class SupafreezeBuilder implements Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-    r'$lib$': ['supafreeze.intermediate.json'],
-  };
+        r'$lib$': ['supafreeze.intermediate.json'],
+      };
 
   @override
   Future<void> build(BuildStep buildStep) async {
@@ -66,19 +66,22 @@ class SupafreezeBuilder implements Builder {
   }
 
   Future<void> _writeEmptyOutput(BuildStep buildStep, AssetId inputId) async {
-    final outputId = AssetId(inputId.package, 'lib/supafreeze.intermediate.json');
-    await buildStep.writeAsString(outputId, '// No tables found or schema unchanged\n');
+    final outputId =
+        AssetId(inputId.package, 'lib/supafreeze.intermediate.json');
+    await buildStep.writeAsString(
+        outputId, '// No tables found or schema unchanged\n');
   }
 
   Future<SchemaDiff?> _fetchAndComputeDiff(
     SchemaFetcher? fetcher,
     SchemaCache cache,
     SupafreezeConfig config,
-  ) => switch (config.fetch) {
-    FetchMode.never => _loadFromCacheOnly(cache, config),
-    FetchMode.ifNoCache => _handleIfNoCache(fetcher, cache, config),
-    FetchMode.always => _fetchFromDatabase(fetcher!, cache, config),
-  };
+  ) =>
+      switch (config.fetch) {
+        FetchMode.never => _loadFromCacheOnly(cache, config),
+        FetchMode.ifNoCache => _handleIfNoCache(fetcher, cache, config),
+        FetchMode.always => _fetchFromDatabase(fetcher!, cache, config),
+      };
 
   Future<SchemaDiff?> _handleIfNoCache(
     SchemaFetcher? fetcher,
@@ -88,9 +91,8 @@ class SupafreezeBuilder implements Builder {
     final cachedTables = await cache.loadCachedSchema();
     if (cachedTables != null) {
       log.info('Using cached schema (fetch: if_no_cache).');
-      final filteredTables = cachedTables
-          .where((t) => config.shouldIncludeTable(t.name))
-          .toList();
+      final filteredTables =
+          cachedTables.where((t) => config.shouldIncludeTable(t.name)).toList();
 
       if (filteredTables.isEmpty) {
         log.info('No tables in cache match the filter criteria.');
@@ -117,13 +119,13 @@ class SupafreezeBuilder implements Builder {
 
     final cachedTables = await cache.loadCachedSchema();
     if (cachedTables == null) {
-      log.severe('No cached schema available. Cannot generate models in offline mode.');
+      log.severe(
+          'No cached schema available. Cannot generate models in offline mode.');
       return null;
     }
 
-    final filteredTables = cachedTables
-        .where((t) => config.shouldIncludeTable(t.name))
-        .toList();
+    final filteredTables =
+        cachedTables.where((t) => config.shouldIncludeTable(t.name)).toList();
 
     if (filteredTables.isEmpty) {
       log.info('No tables in cache match the filter criteria.');
@@ -177,7 +179,8 @@ class SupafreezeBuilder implements Builder {
       }
 
       if (diff.tablesToGenerate.isNotEmpty) {
-        log.info('Tables to generate: ${diff.tablesToGenerate.map((t) => t.name).join(', ')}');
+        log.info(
+            'Tables to generate: ${diff.tablesToGenerate.map((t) => t.name).join(', ')}');
       }
       if (diff.tablesToRemove.isNotEmpty) {
         log.info('Tables to remove: ${diff.tablesToRemove.join(', ')}');
@@ -194,10 +197,10 @@ class SupafreezeBuilder implements Builder {
         return null;
       }
 
-      final filteredCachedTables = cachedTables
-          .where((t) => config.shouldIncludeTable(t.name))
-          .toList();
-      log.info('Using cached schema with ${filteredCachedTables.length} tables.');
+      final filteredCachedTables =
+          cachedTables.where((t) => config.shouldIncludeTable(t.name)).toList();
+      log.info(
+          'Using cached schema with ${filteredCachedTables.length} tables.');
 
       // Return diff with all cached tables to generate
       return SchemaDiff(
@@ -271,10 +274,12 @@ class SupafreezeBuilder implements Builder {
       log.info('Generated: $barrelPath');
     }
 
-    log.info('Generated ${diff.tablesToGenerate.length} model(s), removed ${diff.tablesToRemove.length} model(s)');
+    log.info(
+        'Generated ${diff.tablesToGenerate.length} model(s), removed ${diff.tablesToRemove.length} model(s)');
 
     // Write a marker file to satisfy build_runner output requirements
-    final outputId = AssetId(inputId.package, 'lib/supafreeze.intermediate.json');
+    final outputId =
+        AssetId(inputId.package, 'lib/supafreeze.intermediate.json');
     await buildStep.writeAsString(
       outputId,
       '// Generated ${diff.tablesToGenerate.length}, removed ${diff.tablesToRemove.length}',
@@ -293,7 +298,8 @@ class SupafreezeBuilder implements Builder {
 
     // Keep cached tables that weren't removed or regenerated
     final result = cachedTables
-        .where((t) => !removedNames.contains(t.name) && !generatedNames.contains(t.name))
+        .where((t) =>
+            !removedNames.contains(t.name) && !generatedNames.contains(t.name))
         .toList();
 
     // Add newly generated tables
@@ -304,7 +310,8 @@ class SupafreezeBuilder implements Builder {
 
   /// Removes model files for a specific table
   Future<void> _removeTableFiles(String outputDir, String tableName) async {
-    final baseName = '${ReCase(tableName).snakeCase}.${FreezedGenerator.fileExtension}';
+    final baseName =
+        '${ReCase(tableName).snakeCase}.${FreezedGenerator.fileExtension}';
 
     final files = [
       File(p.join(outputDir, '$baseName.dart')),

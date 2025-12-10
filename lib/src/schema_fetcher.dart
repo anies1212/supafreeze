@@ -49,13 +49,13 @@ class ColumnInfo {
 
   /// Creates a copy with updated foreign key info
   ColumnInfo copyWith({ForeignKeyInfo? foreignKey}) => ColumnInfo(
-    name: name,
-    dataType: dataType,
-    isNullable: isNullable,
-    defaultValue: defaultValue,
-    isPrimaryKey: isPrimaryKey,
-    foreignKey: foreignKey ?? this.foreignKey,
-  );
+        name: name,
+        dataType: dataType,
+        isNullable: isNullable,
+        defaultValue: defaultValue,
+        isPrimaryKey: isPrimaryKey,
+        foreignKey: foreignKey ?? this.foreignKey,
+      );
 
   @override
   String toString() =>
@@ -73,14 +73,16 @@ class TableInfo {
   });
 
   /// Gets all foreign key relationships in this table
-  List<ForeignKeyInfo> get foreignKeys =>
-      columns.where((c) => c.foreignKey != null).map((c) => c.foreignKey!).toList();
+  List<ForeignKeyInfo> get foreignKeys => columns
+      .where((c) => c.foreignKey != null)
+      .map((c) => c.foreignKey!)
+      .toList();
 
   /// Creates a copy with updated columns
   TableInfo copyWith({List<ColumnInfo>? columns}) => TableInfo(
-    name: name,
-    columns: columns ?? this.columns,
-  );
+        name: name,
+        columns: columns ?? this.columns,
+      );
 
   @override
   String toString() => 'TableInfo(name: $name, columns: $columns)';
@@ -247,8 +249,7 @@ class SchemaFetcher {
   /// Parses OpenAPI specification to extract table information
   List<TableInfo> _parseOpenApiSpec(Map<String, dynamic> spec) {
     final tables = <TableInfo>[];
-    final definitions =
-        spec['definitions'] as Map<String, dynamic>? ??
+    final definitions = spec['definitions'] as Map<String, dynamic>? ??
         spec['components']?['schemas'] as Map<String, dynamic>? ??
         {};
 
@@ -263,8 +264,7 @@ class SchemaFetcher {
       final tableSchema = entry.value as Map<String, dynamic>;
       final properties =
           tableSchema['properties'] as Map<String, dynamic>? ?? {};
-      final required =
-          (tableSchema['required'] as List?)?.cast<String>() ?? [];
+      final required = (tableSchema['required'] as List?)?.cast<String>() ?? [];
 
       final columns = <ColumnInfo>[];
       for (final propEntry in properties.entries) {
@@ -319,8 +319,7 @@ class SchemaFetcher {
     final foreignKeys = <String, ForeignKeyInfo>{};
 
     // Method 1: Parse from definitions - look for column naming patterns
-    final definitions =
-        spec['definitions'] as Map<String, dynamic>? ??
+    final definitions = spec['definitions'] as Map<String, dynamic>? ??
         spec['components']?['schemas'] as Map<String, dynamic>? ??
         {};
 
@@ -342,7 +341,8 @@ class SchemaFetcher {
           final potentialTable = columnName.substring(0, columnName.length - 3);
 
           // Check if a table with this name exists (singular or plural forms)
-          final referencedTable = _findReferencedTable(potentialTable, tableNames);
+          final referencedTable =
+              _findReferencedTable(potentialTable, tableNames);
 
           if (referencedTable != null) {
             final format = columnSchema['format'] as String?;
@@ -371,10 +371,10 @@ class SchemaFetcher {
 
     // Plural forms
     final plurals = [
-      '${baseName}s',           // user -> users
-      '${baseName}es',          // box -> boxes
+      '${baseName}s', // user -> users
+      '${baseName}es', // box -> boxes
       baseName.endsWith('y')
-          ? '${baseName.substring(0, baseName.length - 1)}ies'  // category -> categories
+          ? '${baseName.substring(0, baseName.length - 1)}ies' // category -> categories
           : null,
     ].whereType<String>();
 
@@ -412,7 +412,8 @@ class SchemaFetcher {
   Map<String, List<String>> _lastDetectedEnums = {};
 
   /// Gets the enums detected in the last schema fetch
-  Map<String, List<String>> get detectedEnums => Map.unmodifiable(_lastDetectedEnums);
+  Map<String, List<String>> get detectedEnums =>
+      Map.unmodifiable(_lastDetectedEnums);
 
   /// Converts OpenAPI type to PostgreSQL type
   String _openApiTypeToPgType(Map<String, dynamic> schema) {
@@ -424,7 +425,10 @@ class SchemaFetcher {
         // UUID
         'uuid' => 'uuid',
         // Date/Time types
-        'date-time' || 'timestamp with time zone' || 'timestamptz' => 'timestamptz',
+        'date-time' ||
+        'timestamp with time zone' ||
+        'timestamptz' =>
+          'timestamptz',
         'timestamp without time zone' || 'timestamp' => 'timestamp',
         'date' => 'date',
         'time' || 'time with time zone' || 'time without time zone' => 'time',
@@ -437,7 +441,12 @@ class SchemaFetcher {
         'real' || 'float4' => 'float4',
         'numeric' || 'decimal' => 'numeric',
         // String types
-        'text' || 'character varying' || 'varchar' || 'char' || 'character' => 'text',
+        'text' ||
+        'character varying' ||
+        'varchar' ||
+        'char' ||
+        'character' =>
+          'text',
         // Boolean
         'boolean' => 'bool',
         // JSON types
@@ -455,9 +464,10 @@ class SchemaFetcher {
       'number' => 'float8',
       'boolean' => 'bool',
       'array' => switch (schema['items']) {
-        final Map<String, dynamic> items => '${_openApiTypeToPgType(items)}[]',
-        _ => 'jsonb',
-      },
+          final Map<String, dynamic> items =>
+            '${_openApiTypeToPgType(items)}[]',
+          _ => 'jsonb',
+        },
       'object' => 'jsonb',
       _ => 'text',
     };
@@ -492,12 +502,16 @@ class SchemaFetchException implements Exception {
       buffer.write('\nHTTP Status: $statusCode');
     }
     if (responseBody != null && responseBody!.isNotEmpty) {
-      buffer.write('\nResponse: ${responseBody!.length > 500 ? '${responseBody!.substring(0, 500)}...' : responseBody}');
+      buffer.write(
+          '\nResponse: ${responseBody!.length > 500 ? '${responseBody!.substring(0, 500)}...' : responseBody}');
     }
     buffer.write('\n\nTroubleshooting:');
-    buffer.write('\n1. Verify SUPABASE_DATA_API_URL is correct (should be https://xxx.supabase.co)');
-    buffer.write('\n2. Verify SUPABASE_SECRET_KEY is the service_role key (not anon key)');
-    buffer.write('\n3. Check that your Supabase project is active and accessible');
+    buffer.write(
+        '\n1. Verify SUPABASE_DATA_API_URL is correct (should be https://xxx.supabase.co)');
+    buffer.write(
+        '\n2. Verify SUPABASE_SECRET_KEY is the service_role key (not anon key)');
+    buffer.write(
+        '\n3. Check that your Supabase project is active and accessible');
     return buffer.toString();
   }
 }

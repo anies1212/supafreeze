@@ -17,7 +17,8 @@ void main() {
     group('loadConfig', () {
       test('returns null when config file does not exist', () async {
         final loader = ConfigLoader();
-        final config = await loader.loadConfig('${tempDir.path}/nonexistent.yaml');
+        final config =
+            await loader.loadConfig('${tempDir.path}/nonexistent.yaml');
 
         expect(config, isNull);
       });

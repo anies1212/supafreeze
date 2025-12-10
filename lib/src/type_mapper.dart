@@ -240,9 +240,7 @@ class TypeMapper {
   /// Check if the type needs a JsonKey annotation for proper serialization
   static bool needsJsonKey(String pgType) {
     final baseType =
-        pgType.endsWith('[]')
-            ? pgType.substring(0, pgType.length - 2)
-            : pgType;
+        pgType.endsWith('[]') ? pgType.substring(0, pgType.length - 2) : pgType;
     return ['json', 'jsonb'].contains(baseType.toLowerCase());
   }
 }
