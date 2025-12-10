@@ -39,7 +39,7 @@ Create `supafreeze.yaml` in your project root:
 
 ```yaml
 # supafreeze.yaml (commit this to git)
-url: ${SUPABASE_URL}
+url: ${SUPABASE_DATA_API_URL}
 secret_key: ${SUPABASE_SECRET_KEY}
 output: lib/models
 schema: public
@@ -49,7 +49,7 @@ Create `.env` file for your credentials:
 
 ```bash
 # .env (add to .gitignore!)
-SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_DATA_API_URL=https://your-project.supabase.co
 SUPABASE_SECRET_KEY=your-secret-key
 ```
 
@@ -125,7 +125,7 @@ After running the CLI, always run `dart run build_runner build` to generate the 
 
 ```yaml
 # Required
-url: ${SUPABASE_URL}           # Supabase project URL
+url: ${SUPABASE_DATA_API_URL}           # Supabase Data API URL
 secret_key: ${SUPABASE_SECRET_KEY}  # Supabase service role key
 
 # Optional
@@ -150,10 +150,10 @@ supafreeze supports multiple ways to reference sensitive values:
 
 ```yaml
 # Auto-resolve: checks dart-define > .env > environment variables
-url: ${SUPABASE_URL}
+url: ${SUPABASE_DATA_API_URL}
 
 # Explicit environment variable
-url: $env{SUPABASE_URL}
+url: $env{SUPABASE_DATA_API_URL}
 
 # Explicit .env file variable
 secret_key: $dotenv{SUPABASE_SECRET_KEY}
@@ -241,7 +241,7 @@ jobs:
       - name: Sync Supabase schema
         run: dart run supafreeze:supafreeze
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_DATA_API_URL: ${{ secrets.SUPABASE_DATA_API_URL }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
 
       # Generate freezed/json_serializable code
@@ -253,7 +253,7 @@ jobs:
 ```
 
 **Required secrets:**
-- `SUPABASE_URL`: Your Supabase project URL
+- `SUPABASE_DATA_API_URL`: Your Supabase Data API URL
 - `SUPABASE_SECRET_KEY`: Your Supabase service role key
 
 ### Alternative: Use cached schema in CI
@@ -318,7 +318,7 @@ supafreeze can auto-detect foreign key relationships from `*_id` columns and emb
 ### Enable relation embedding
 
 ```yaml
-url: ${SUPABASE_URL}
+url: ${SUPABASE_DATA_API_URL}
 secret_key: ${SUPABASE_SECRET_KEY}
 output: lib/models
 embed_relations: true

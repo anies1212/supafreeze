@@ -1,5 +1,5 @@
 # supafreeze configuration
-url: ${SUPABASE_URL}
+url: ${SUPABASE_DATA_API_URL}
 secret_key: ${SUPABASE_SECRET_KEY}
 output: lib/models
 schema: public

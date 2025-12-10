@@ -495,7 +495,7 @@ class SchemaFetchException implements Exception {
       buffer.write('\nResponse: ${responseBody!.length > 500 ? '${responseBody!.substring(0, 500)}...' : responseBody}');
     }
     buffer.write('\n\nTroubleshooting:');
-    buffer.write('\n1. Verify SUPABASE_URL is correct (should be https://xxx.supabase.co)');
+    buffer.write('\n1. Verify SUPABASE_DATA_API_URL is correct (should be https://xxx.supabase.co)');
     buffer.write('\n2. Verify SUPABASE_SECRET_KEY is the service_role key (not anon key)');
     buffer.write('\n3. Check that your Supabase project is active and accessible');
     return buffer.toString();

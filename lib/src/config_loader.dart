@@ -333,9 +333,9 @@ class SupafreezeConfig {
     final issues = <String>[];
 
     if (url == null || url!.isEmpty) {
-      issues.add('Supabase URL is not configured. Set SUPABASE_URL in .env or environment.');
+      issues.add('Supabase Data API URL is not configured. Set SUPABASE_DATA_API_URL in .env or environment.');
     } else if (!url!.startsWith('https://')) {
-      issues.add('Supabase URL should start with https://');
+      issues.add('Supabase Data API URL should start with https://');
     }
 
     if (secretKey == null || secretKey!.isEmpty) {

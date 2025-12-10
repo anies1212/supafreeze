@@ -13,7 +13,7 @@ cp .env.example .env
 2. Edit `.env` with your actual credentials:
 
 ```bash
-SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_DATA_API_URL=https://your-project.supabase.co
 SUPABASE_SECRET_KEY=your-secret-key
 ```
 

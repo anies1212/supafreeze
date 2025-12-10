@@ -7,14 +7,14 @@
 ///
 /// 1. Create `supafreeze.yaml` in your project root:
 /// ```yaml
-/// url: ${SUPABASE_URL}
+/// url: ${SUPABASE_DATA_API_URL}
 /// secret_key: ${SUPABASE_SECRET_KEY}
 /// output: lib/models
 /// ```
 ///
 /// 2. Create `.env` file with your credentials:
 /// ```
-/// SUPABASE_URL=https://your-project.supabase.co
+/// SUPABASE_DATA_API_URL=https://your-project.supabase.co
 /// SUPABASE_SECRET_KEY=your-secret-key
 /// ```
 ///
