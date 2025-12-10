@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-12-10
+
+### Fixed
+
+- Loosened analyzer range to stay compatible with build_runner/freezed toolchains while still allowing latest releases
+- Updated example dependencies to resolve build_runner formatting errors caused by analyzer incompatibility
+
+## [1.0.1] - 2025-12-10
+
+### Changed
+
+- Renamed Supabase environment variable to `SUPABASE_DATA_API_URL` in docs and validations for clarity
+
 ## [1.0.0] - 2024-12-10
 
 ### Added

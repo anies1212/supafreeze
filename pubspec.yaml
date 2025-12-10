@@ -2,7 +2,7 @@ name: supafreeze
 description: >-
   Generate Freezed models from Supabase database schema automatically.
   Supports incremental generation, smart caching, and build_runner integration.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/anies1212/supafreeze
 repository: https://github.com/anies1212/supafreeze
 issue_tracker: https://github.com/anies1212/supafreeze/issues
@@ -24,7 +24,7 @@ dependencies:
   recase: ^4.1.0
   build: ">=2.5.4 <5.0.0"
   source_gen: ">=2.0.0 <5.0.0"
-  analyzer: ">=7.3.0 <10.0.0"
+  analyzer: ">=6.5.0 <10.0.0"
   crypto: ^3.0.6
 
 dev_dependencies:
