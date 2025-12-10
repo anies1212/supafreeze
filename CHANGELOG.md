@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Loosened analyzer range to stay compatible with build_runner/freezed toolchains while still allowing latest releases
 - Updated example dependencies to resolve build_runner formatting errors caused by analyzer incompatibility
 
+## [1.0.4] - 2025-12-10
+
+### Fixed
+
+- Formatted Dart sources to satisfy pub.dev static analysis checks
+- Bumped package version to align with latest release tag
+
 ## [1.0.1] - 2025-12-10
 
 ### Changed
